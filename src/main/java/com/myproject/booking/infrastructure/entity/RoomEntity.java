@@ -7,15 +7,14 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "rooms")
 public class RoomEntity {
+
     @Id
-    @Column(name = "id")
-    private String idRoom;
+    private Integer idRoom;
 
-    @Column(name = "name")
-    private String roomName;
-
-    @Column(name = "description")
-    private String description;
+    @OneToOne(cascade = CascadeType.ALL)
+    @MapsId
+    @JoinColumn(name = "resource_id")
+    private ResourcesEntity resources;
 
     @Column(name = "localisation")
     private String localisation;
