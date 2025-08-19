@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 
 @Configuration
-@ComponentScan(includeFilters =  { @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {DomainService.class, Stub.class})})
+@ComponentScan(
+        basePackages = "com.myproject.booking.application",
+        includeFilters =  { @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {DomainService.class})},
+        excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {Stub.class})}
+)
 public class DomainConfiguration {
 }

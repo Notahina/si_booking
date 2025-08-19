@@ -3,19 +3,19 @@ package com.myproject.booking.infrastructure.entity;
 import com.myproject.booking.domain.resource.FuelType;
 import com.myproject.booking.domain.resource.Transmission;
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "cars")
+@Data
 public class CarEntity {
     @Id
-    @Column(name = "id")
-    private String idCar;
+    private Integer idCar;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "description")
-    private String description;
+    @OneToOne(cascade = CascadeType.ALL)
+    @MapsId
+    @JoinColumn(name = "resource_id")
+    private ResourcesEntity resources;
 
     @Column(name = "marque")
     private String marque;
@@ -35,11 +35,14 @@ public class CarEntity {
     @Column(name = "nbre_place")
     private int nbrePlace;
 
+    @Column(name = "daily_price")
+    private Double dailyPrice;
+
     @Column(name = "transmission")
     @Enumerated(EnumType.STRING)
     private Transmission transmission;
 
-    @Column(name = "fuelType")
+    @Column(name = "fuel_type")
     @Enumerated(EnumType.STRING)
     private FuelType fuelType;
 }
