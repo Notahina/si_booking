@@ -63,4 +63,22 @@ public class BookingServiceTest {
         Booking booking = bookingService.updateBooking(request);
     }
 
+    @Test
+    void testUpdateBooking_Exception()  {
+        LocalDateTime dateStart = DateUtils.parseDateTime("2025-08-07 14:30");
+
+        BookingRequest request = BookingRequest.builder()
+                .idBooking(2)
+                .idResource("CAR-01")
+                .startTime(dateStart)
+                .endTime(dateStart.plusDays(15))
+                .build();
+
+        Exception exception = Assertions.assertThrows(BusinessException.class, () -> {
+            bookingService.updateBooking(request);
+        });
+
+        Assertions.assertTrue(exception.getMessage().contains("réservation"));
+    }
+
 }
