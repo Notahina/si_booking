@@ -10,4 +10,18 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v4
-  
+
+      - name: Set up jdk 17 
+        uses: actions/setup-java@v4
+        with: 
+          java-version: '17'
+          distribution: 'zulu'
+          cache: 'maven'
+          
+      - name: Build and run test
+        run: mvn --batch-mode --update-snapshots verify
+
+      - name: Creat folder staging and coping 
+        run: mkdir staging && cp target/*.jar staging
+        
+
