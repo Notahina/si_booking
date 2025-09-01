@@ -1,0 +1,13 @@
+name: Projet pipleline ci
+
+on: 
+  push:
+    branches:
+      - '*'
+jobs: 
+  check-bats-version: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+  
