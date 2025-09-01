@@ -9,7 +9,7 @@ import lombok.Data;
 public class ResourcesEntity {
 
     @Id
-    @Column(name = "resource_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
