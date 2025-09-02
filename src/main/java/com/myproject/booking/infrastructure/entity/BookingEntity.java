@@ -1,5 +1,6 @@
 package com.myproject.booking.infrastructure.entity;
 
+import com.myproject.booking.domain.BookingStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -26,5 +27,8 @@ public class BookingEntity {
     @Column(name = "total_price")
     private Double price;
 
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private BookingStatus bookingStatus;
 
 }

@@ -10,6 +10,7 @@ import com.myproject.booking.infrastructure.mapper.BookingMapper;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class BookingRepositoryImpl implements IBookingRepository {
@@ -24,7 +25,20 @@ public class BookingRepositoryImpl implements IBookingRepository {
 
     @Override
     public Booking saveBooking(Booking booking) {
-        return null;
+        BookingEntity bookingEntity = new BookingEntity();
+        if (booking.getId() != null) {
+             bookingEntity = bookingEntityRepository.findById(booking.getId()).orElse(new BookingEntity());
+        }
+
+        bookingEntity.setPrice(booking.getTotalPrice());
+        bookingEntity.setResourceId(Integer.valueOf(booking.getResource().getIdResource()));
+        bookingEntity.setStartDate(booking.getPeriode().getStartDate());
+        bookingEntity.setEndDate(booking.getPeriode().getEndDate());
+        bookingEntity.setBookingStatus(booking.getStatus());
+        BookingEntity saveBooking = bookingEntityRepository.save(bookingEntity);
+
+        Resource resource = resourceRepository.findById(String.valueOf(saveBooking.getResourceId()));
+        return BookingMapper.toDomain(saveBooking,resource);
     }
 
     @Override
@@ -39,6 +53,12 @@ public class BookingRepositoryImpl implements IBookingRepository {
 
     @Override
     public List<Booking> findResourceIdInPeriode(String idResource, Periode periode) {
-        return List.of();
+        Set<BookingEntity> bookingEntities = bookingEntityRepository.findOverlappingBookings(Integer.valueOf(idResource),periode.getStartDate(),periode.getEndDate());
+
+        return bookingEntities.stream().map(
+                bookingEntity -> {
+                    return BookingMapper.toDomain(bookingEntity, resourceRepository.findById(String.valueOf(bookingEntity.getResourceId())));
+                }
+        ).toList();
     }
 }
