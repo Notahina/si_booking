@@ -13,6 +13,7 @@ public  abstract class Resource {
     private String idResource;
     private String name;
     private String description;
+    @Builder.Default
     private boolean available = true;
 
     public abstract double calculatePrice(LocalDateTime dateStart, LocalDateTime dateEnd);

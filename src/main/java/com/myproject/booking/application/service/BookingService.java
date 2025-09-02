@@ -25,7 +25,7 @@ public class BookingService implements IBookingService{
 
     @Override
     public Booking findById(Integer id) {
-        return null;
+        return bookingRepository.findByIdBooking(id);
     }
 
     @Override

@@ -6,8 +6,9 @@ import com.myproject.booking.infrastructure.entity.CarEntity;
 import com.myproject.booking.infrastructure.entity.ResourcesEntity;
 import com.myproject.booking.infrastructure.mapper.EntityMapper;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class ResourceRepositoryImpl implements IResourceRepository {
 
     private  final ResourcesEntityRepository resourcesEntityRepository ;
