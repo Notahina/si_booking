@@ -46,6 +46,7 @@ public class BookingControllerTest {
 
         mockMvc.perform(get("/booking/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1));
+                .andExpect(jsonPath("$.idBooking").value(1))
+                .andExpect(jsonPath("$.typeResource").value("car"));
     }
 }
