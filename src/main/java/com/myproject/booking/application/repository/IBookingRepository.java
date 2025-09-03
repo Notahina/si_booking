@@ -1,6 +1,5 @@
 package com.myproject.booking.application.repository;
 
-import com.myproject.booking.application.dto.BookingRequest;
 import com.myproject.booking.domain.Booking;
 import com.myproject.booking.domain.valueObject.Periode;
 

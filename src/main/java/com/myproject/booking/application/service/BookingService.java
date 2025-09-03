@@ -38,7 +38,16 @@ public class BookingService implements IBookingService{
         newBooking.setResource(resource);
         newBooking.setPeriode(new Periode(request.getStartTime(), request.getEndTime()));
         newBooking.setTotalPrice( newBooking.getResource().calculatePrice(newBooking.getPeriode().getStartDate(), newBooking.getPeriode().getEndDate()));
+        
+        canBooking(resource.getIdResource(), newBooking.getPeriode());
         return bookingRepository.saveBooking(newBooking);
+    }
+
+    private void canBooking(String idResource, Periode periode) throws BusinessException {
+        //test is resource est  libre pour la periode demander
+        List<Booking> bookingList = bookingRepository.findResourceIdInPeriode(idResource, periode);
+        if (!CollectionUtils.isEmpty(bookingList))
+            throw new BusinessException("Une réservation à été déja fait pour cette date du "+periode.getStartDate() + " au " +periode.getEndDate());
     }
 
     @Override
@@ -67,10 +76,7 @@ public class BookingService implements IBookingService{
         if (!canUpdate)
             throw new BusinessException("Pour modifier la réservation #%s , elle doit etre du meme type que %s".formatted(request.getIdResource(), booking.getResource().getTypeResource()));
 
-        //test is resource est  libre pour la periode demander
-        List<Booking> bookingList = bookingRepository.findResourceIdInPeriode(request.getIdResource(), periode);
-        if (!CollectionUtils.isEmpty(bookingList))
-            throw new BusinessException("Une réservation à été déja fait pour cette date du "+periode.getStartDate() + " au " +periode.getEndDate());
+        canBooking(resource.getIdResource(), periode);
 
         booking.setStatus(BookingStatus.RESERVED);
         booking.setPeriode(new Periode(request.getStartTime(), request.getEndTime()));
