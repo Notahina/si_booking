@@ -1,8 +1,10 @@
 package com.myproject.booking.application.dto;
 
-import lombok.experimental.SuperBuilder;
+import lombok.Getter;
+import lombok.Setter;
 
-@SuperBuilder
+@Getter
+@Setter
 public  class ResourceDetailResponse {
     private String id;
     private String name;

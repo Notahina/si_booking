@@ -1,11 +1,10 @@
 package com.myproject.booking.infrastructure.mapper;
 
 import com.myproject.booking.application.dto.BookingResponse;
-import com.myproject.booking.application.dto.CarDetailResponse;
 import com.myproject.booking.application.dto.ResourceDetailResponse;
 import com.myproject.booking.application.utils.DateUtils;
+import com.myproject.booking.application.utils.mapper.ResourceMapper;
 import com.myproject.booking.domain.Booking;
-import com.myproject.booking.domain.resource.Car;
 import com.myproject.booking.domain.resource.Resource;
 import com.myproject.booking.domain.valueObject.Periode;
 import com.myproject.booking.infrastructure.entity.BookingEntity;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class BookingMapper {
 
     public static BookingResponse toBookingResponse(Booking booking) {
-        ResourceDetailResponse resourceDetailResponse = fillResourceDetails(booking.getResource());
+        ResourceDetailResponse resourceDetailResponse = ResourceMapper.toResponse(booking.getResource());
 
         return BookingResponse.builder()
                 .idBooking(booking.getId().toString())
@@ -28,22 +27,7 @@ public class BookingMapper {
                 .build();
     }
 
-    private static ResourceDetailResponse fillResourceDetails(Resource resource) {
-        if (resource instanceof Car car){
-            return CarDetailResponse.builder()
-                    .id(resource.getIdResource())
-                    .name(resource.getName())
-                    .description(resource.getDescription())
-                    .brand(car.getMarque())
-                    .model(car.getModel())
-                    .year(car.getYear())
-                    .transmission(car.getTransmission().getValue())
-                    .fuelType(car.getFuelType().getValue())
-                    .dailyPrice(car.getDailyRate())
-                    .build();
-        }
-        return null;
-    }
+
 
 
     public static Booking toDomain(BookingEntity entity,Resource resource) {

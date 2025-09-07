@@ -2,11 +2,11 @@ package com.myproject.booking.application.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.SuperBuilder;
+import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
-@SuperBuilder
 @Data
+@NoArgsConstructor
 public class CarDetailResponse extends ResourceDetailResponse{
     private String color;
     private String brand;
