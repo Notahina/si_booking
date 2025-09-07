@@ -43,4 +43,17 @@ public class ResourceRepositoryStub implements IResourceRepository {
     public Resource findById(String id) {
         return getResources().stream().filter(r -> r.getIdResource().equalsIgnoreCase(id)).findFirst().orElse(null);
     }
+
+    @Override
+    public Resource save(Resource resource) {
+        int randomNum = (int)(Math.random() * 10000);
+        if (resource == null) {
+            throw   new IllegalArgumentException("resource is null");
+        }
+        if (resource instanceof Car car) {
+            car.setIdResource(String.format("CAR-%04d", randomNum));
+            return car;
+        }
+        return  null;
+    }
 }

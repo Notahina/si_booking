@@ -23,5 +23,20 @@ public class EntityMapper {
                 .build();
     }
 
+    public static CarEntity carToEntity(Car car) {
+        CarEntity carEntity = new CarEntity();
+        carEntity.setColor(car.getColor());
+        carEntity.setAnnee(car.getYear());
+        carEntity.setMarque(car.getMarque());
+        carEntity.setModel(car.getModel());
+        carEntity.setDailyPrice(car.getDailyRate());
+        carEntity.setFuelType(car.getFuelType());
+        carEntity.setNbrePlace(car.getNumberOfSeats());
+        carEntity.setTransmission(car.getTransmission());
+        carEntity.setLicencePlate(car.getLicensePlate());
+
+        return  carEntity;
+    }
+
 
 }

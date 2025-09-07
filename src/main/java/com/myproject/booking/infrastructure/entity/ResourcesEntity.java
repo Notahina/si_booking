@@ -1,5 +1,6 @@
 package com.myproject.booking.infrastructure.entity;
 
+import com.myproject.booking.domain.resource.ResourceType;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,8 +24,5 @@ public class ResourcesEntity {
     @Enumerated(EnumType.STRING)
     private ResourceType resourceType;
 
-    public enum ResourceType {
-        CAR,
-        ROOM
-    }
+
 }

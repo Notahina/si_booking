@@ -2,7 +2,6 @@ package com.myproject.booking.infrastructure.controller;
 
 import com.myproject.booking.application.dto.BookingRequest;
 import com.myproject.booking.application.dto.BookingResponse;
-import com.myproject.booking.application.dto.ErrorResponseDTO;
 import com.myproject.booking.application.exception.BusinessException;
 import com.myproject.booking.application.service.IBookingService;
 import com.myproject.booking.domain.Booking;
@@ -27,16 +26,8 @@ public class BookingController {
     }
 
     @PostMapping("/booking/")
-    public ResponseEntity<?> createBooking(@RequestBody BookingRequest bookingRequest)  {
-        try{
+    public ResponseEntity<?> createBooking(@RequestBody BookingRequest bookingRequest) throws BusinessException {
             Booking reserve = bookingService.reserveBooking(bookingRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(BookingMapper.toBookingResponse(reserve));
-        }catch (BusinessException e){
-            ErrorResponseDTO errorResponse = new ErrorResponseDTO();
-            errorResponse.setMessage(e.getMessage());
-            errorResponse.setStatus(400);
-            return ResponseEntity.badRequest().body(errorResponse);
-        }
-
     }
 }
